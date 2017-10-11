@@ -156,10 +156,28 @@ public class VirtualPetGUI
     {
         return resetButton;
     }
-
-
-
-
+    //Deals with just the image
+    public class ImagePanel extends JPanel 
+    {
     
+        JFrame frame; //Holds the instance of the JFrame, the class outside this class
+        
+        public ImagePanel(JFrame frame) 
+        {
+            super(new BorderLayout());
+            this.frame = frame;
+            setBounds(0, 0, PICTURE_WIDTH, PICTURE_HEIGHT);
+            setVisible(true);
+        }
+        
+        //So it actually shows up correctly
+        @Override
+        public void paintComponent(Graphics g) 
+        {
+            super.paintComponent(g);
+            g.drawImage(image, 0, 0, PICTURE_WIDTH, PICTURE_HEIGHT, frame);
+        }
+    
+    }
     
 }
