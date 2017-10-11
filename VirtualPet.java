@@ -3,6 +3,14 @@
  * @author Jack Rosetti
  * @author Still Jack Rosetti
  */
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 public class VirtualPet 
 {
     
@@ -19,13 +27,16 @@ public class VirtualPet
     // constructor
     public VirtualPet() 
     {
-        face = new VirtualPetFace();
-        face.setImage("normal");
-        face.setMessage("Hello.");
-        private VirtualPetGUI gui;
-
+        initialize();
     }
-
+    
+    public void initialize()
+    {
+        gui = new VirtualPetGUI();
+        initializeButtons();
+        reset();
+    }
+    
     public void resetGame()
     {
         money = 100;
@@ -40,8 +51,8 @@ public class VirtualPet
     public void start() 
     {
         gui.setImage(fh.getImage("penguinWalking"));
-        gui.setText("Congratulations, you have just inherited 100 smackeroos! +
-            You choose to move to New York to be the next big mogul. Can you do it?");
+        gui.setText("Congratulations! You have just inherited 100 bucks. You decide to " + 
+        "go to New York to be the next big billionare. Can you do it?");
     }
 
     public void feed() 
@@ -103,6 +114,23 @@ public class VirtualPet
             face.setImage("asleep");
         }
     }
-
+    private void initializeButtons() 
+    {
+        gui.getContinueButton().addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+                startTraining();
+            }
+        });
+        
+        gui.getRestButton().addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+                restTraining();
+            }
+        });
+    }
 
 } // end Virtual Pet
